@@ -84,7 +84,7 @@ function new_comment() {
 function nav_show(){
     const str = `
     {{each data}}
-        <li><a href="javascript:;"><i class="fa {{$value.classname}}"></i>{{$value.title}}</a></li>
+        <li><a href="list.html?id={{$value._id}}"><i class="fa {{$value.classname}}"></i>{{$value.title}}</a></li>
     {{/each}}
     `;
 
@@ -98,3 +98,9 @@ function nav_show(){
     })
 }
 nav_show();
+
+//修改时间日期
+function time(times) {
+    var date = new Date(times);
+    return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
+}
