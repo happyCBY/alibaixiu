@@ -23,4 +23,8 @@ home.get("/likes/:id",require("./home/likes"));
 //实现搜索功能
 home.get("/search/:title",require("./home/search"));
 
+//是否显示评论
+home.get("/settings",require("./home/settings"));
+//评论
+home.post("/comment_add",require("./home/comment_add"));
 module.exports = home;

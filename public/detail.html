@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,6 +10,7 @@
   <link rel="stylesheet" href="assets/vendors/nprogress/nprogress.css">
   <script src="./assets/vendors/art-template/template-web.js"></script>
 </head>
+
 <body>
   <div class="wrapper">
     <div class="topnav">
@@ -66,13 +68,15 @@
         .comment {
           margin-bottom: 20px;
         }
-        .comment textarea{
+
+        .comment textarea {
           box-sizing: border-box;
           padding: 10px;
           width: 100%;
           height: 80px;
           display: block;
         }
+
         .comment input {
           width: 100px;
           height: 30px;
@@ -80,10 +84,7 @@
         }
       </style>
       <div class="comment">
-        <form>
-          <textarea></textarea>
-          <input type="submit" value="提交评论">
-        </form>
+
       </div>
       <div class="panel hots">
         <h3>热门推荐</h3>
@@ -96,9 +97,17 @@
       <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
     </div>
   </div>
+  <!-- 模板 -->
+  <script type="text/html" id="commerts">
+    <form>
+      <textarea class = "textarea"></textarea>
+      <input type="button"  value="提交评论">
+    </form>
+  </script>
   <script src="assets/vendors/jquery/jquery.js"></script>
   <script src="assets/vendors/nprogress/nprogress.js"></script>
   <script src="./assets/js/home_common.js"></script>
   <script src="./assets/js/detail.js"></script>
 </body>
+
 </html>
