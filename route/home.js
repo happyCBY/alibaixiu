@@ -11,4 +11,6 @@ home.get("/newArticle",require("./home/newArticle"));
 home.get("/randerRecommend",require("./home/randerRecommend"));
 //展示最新评论数据
 home.get("/new_comment",require("./home/new_comment"));
+//分类导航显示
+home.get("/nav",require("./home/nav"));
 module.exports = home;
