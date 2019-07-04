@@ -99,6 +99,25 @@ function nav_show(){
 }
 nav_show();
 
+
+//点赞功能
+$(".newArticle").on("click",".likes",function (){
+    const id = $(this).attr("data_id");
+    const that = $(this);
+    //取出赞里面的数字
+    var num = $(this).html().split("(")[1].split(")")[0]-0;
+
+    $.ajax({
+        type:'get',//get或post
+        url:'/home/likes/'+id,//请求的地址
+        success:function(data){//成功的回调函数
+            num+=1;
+            //让页面的赞的数量增加
+            that.html("赞("+num+")");
+        }
+    })
+});
+
 //修改时间日期
 function time(times) {
     var date = new Date(times);

@@ -46,10 +46,10 @@ var str = `
     <p class="extra">
       <span class="reading">阅读({{$value.meta.views}})</span>
       <span class="comment">评论({{$value.meta.comments}})</span>
-      <a href="detail.html?id={{$value._id}}" class="like">
+
         <i class="fa fa-thumbs-up"></i>
-        <span>赞({{$value.meta.likes}})</span>
-      </a>
+        <span class = "likes" data_id="{{$value._id}}">赞({{$value.meta.likes}})</span>
+
       <a href="detail.html?id={{$value._id}}" class="tags">
         分类：<span>{{$value.category.title}}</span>
       </a>
@@ -67,7 +67,8 @@ $.ajax({
   success:function(data){//成功的回调函数
     template.defaults.imports.time = time;
     var html = template.render(str,{data});
-    $("#newArticle").html(html);
+    $(".newArticle").html(html);
+    console.log($(".newArticle").children());
   }
 })
 }

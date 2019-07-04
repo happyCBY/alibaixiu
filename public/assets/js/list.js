@@ -16,10 +16,10 @@ function show_list(){
       <p class="extra">
         <span class="reading">阅读({{$value.meta.views}})</span>
         <span class="comment">评论({{$value.meta.comments}})</span>
-        <a href="detail.html?id={{$value._id}}" class="like">
+
           <i class="fa fa-thumbs-up"></i>
-          <span>赞({{$value.meta.likes}})</span>
-        </a>
+          <span class = "likes" data_id={{$value._id}}>赞({{$value.meta.likes}})</span>
+
         <a href="detail.html?id={{$value._id}}" class="tags">
           分类：<span>{{$value.category.title}}</span>
         </a>

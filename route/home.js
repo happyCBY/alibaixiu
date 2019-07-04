@@ -18,4 +18,6 @@ home.get("/nav",require("./home/nav"));
 home.get("/show_list/:_id",require("./home/show_list"));
 //文章详情页面
 home.get("/article/:id",require("./home/article"));
+//实现点赞功能
+home.get("/likes/:id",require("./home/likes"));
 module.exports = home;
