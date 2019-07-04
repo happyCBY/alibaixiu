@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sign in &laquo; Admin</title>
+  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="stylesheet" href="../assets/vendors/nprogress/nprogress.css">
+  <script src="../assets/vendors/jquery/jquery.min.js"></script>
+  <script src="../assets/vendors/nprogress/nprogress.js"></script>
+</head>
+
+<body>
+  <div class="login">
+    <div class="login-wrap">
+      <img class="avatar" src="../assets/img/default.png">
+      <div class="form-group">
+        <label for="email" class="sr-only">邮箱</label>
+        <input id="email" type="email" class="form-control" placeholder="邮箱" autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password" class="sr-only">密码</label>
+        <input id="password" type="password" class="form-control" placeholder="密码">
+      </div>
+      <button class="btn btn-primary btn-block" id="btn_login">登 录</button>
+    </div>
+  </div>
+  <script>
+    var email = document.querySelector('#email');
+    var password = document.querySelector('#password');
+    var btn = document.querySelector('#btn_login');
+
+    $(btn).on("click", function () {
+      $(document).on("ajaxStart", function () {
+        NProgress.start();
+      })
+
+      $(document).on("ajaxComplete", function () {
+        NProgress.done();
+      })
+      $.ajax({
+        type: "post",
+        url: "/admin/login",
+        data: {
+          email: email.value,
+          password: password.value,
+        },
+        beforeSend: function () {
+          if (email.value.trim() == 0 || password.value.trim() == 0) {
+            alert("请输入邮箱或密码");
+            return false;
+          } else {
+            return true;
+          }
+        },
+        success: function (data) {
+          if (data) {
+            location.href = "index.html";
+          } else {
+            alert("邮箱或密码错误，请重新输入");
+          }
+        },
+        error: function () {
+          console.log("登录失败");
+        }
+      })
+    });
+  </script>
+</body>
+
+</html>

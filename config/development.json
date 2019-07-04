@@ -1,0 +1,9 @@
+{
+    "session": {
+        "secret": "secret key",
+        "saveUninitialized": false,
+        "cookie": {
+            "maxAge": 36000000
+        }
+    }
+}

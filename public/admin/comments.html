@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>Comments &laquo; Admin</title>
+  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="../assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script src="../assets/vendors/nprogress/nprogress.js"></script>
+  <script src="../assets//vendors//art-template/template-web.js"></script>
+</head>
+
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <button class="btn btn-default navbar-btn fa fa-bars"></button>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="password-reset.html"><i class="fa fa-user"></i>修改密码</a></li>
+        <li><a href="javascript:;" class="sign_out"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid">
+      <div class="page-title">
+        <h1>所有评论</h1>
+      </div>
+      <div class="page-action">
+        <ul class="pagination pagination-sm pull-right ul_page">
+
+        </ul>
+      </div>
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th>作者</th>
+            <th>评论</th>
+            <th>评论在</th>
+            <th>提交于</th>
+            <th>状态</th>
+            <th class="text-center" width="100">操作</th>
+          </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="aside">
+    <div class="profile">
+      <img class="avatar">
+      <h3 class="name"></h3>
+    </div>
+    <ul class="nav">
+      <li>
+        <a href="index.html"><i class="fa fa-dashboard"></i>仪表盘</a>
+      </li>
+      <li>
+        <a href="#menu-posts" class="collapsed" data-toggle="collapse">
+          <i class="fa fa-thumb-tack"></i>文章<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-posts" class="collapse">
+          <li><a href="posts.html">所有文章</a></li>
+          <li><a href="post-add.html">写文章</a></li>
+          <li><a href="categories.html">分类目录</a></li>
+        </ul>
+      </li>
+      <li class="active">
+        <a href="comments.html"><i class="fa fa-comments"></i>评论</a>
+      </li>
+      <li>
+        <a href="users.html"><i class="fa fa-users"></i>用户</a>
+      </li>
+      <li>
+        <a href="#menu-settings" class="collapsed" data-toggle="collapse">
+          <i class="fa fa-cogs"></i>设置<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-settings" class="collapse">
+          <li><a href="slides.html">图片轮播</a></li>
+          <li><a href="settings.html">网站设置</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <!-- 模板 -->
+  <!-- 评论列表模板 -->
+  <script type="text/html" id="comment_art">
+    {{each data}}
+    <tr class="danger">
+        <td>{{$value.author.username}}</td>
+        <td>{{$value.connect}}</td>
+        <td>{{$value.where.title}}</td>
+        <td>{{date($value.time)}}</td>
+        <td>{{$value.status==0?"未批准":"已批准"}}</td>
+        <td class="text-center">
+          <a href="javascript:;" class="btn btn-info btn-xs change_status" data_status={{$value._id}}>{{$value.status==0?"批准":"驳回"}}</a>
+          <a href="javascript:;" class="btn btn-danger btn-xs delete_comment" data_delete={{$value._id}}>删除</a>
+        </td>
+      </tr>
+    {{/each}}
+  </script>
+  <!-- 分页模板 -->
+  <script type="text/html" id="page_art">
+    <li ><a href="#" style = "display:{{data.page==1?'none':'inline-block'}}" page={{data.page-1}}>上一页</a></li>
+    {{each num}}
+    <li><a href="#" page = {{$value}} >{{$value}}</a></li>
+    {{/each}}
+    <li ><a href="#" style = "display:{{data.page==data.pages?'none':'inline-block'}}" page={{data.page+1}}>下一页</a></li>
+  </script>
+  <script src="../assets/vendors/jquery/jquery.js"></script>
+  <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script>NProgress.done()</script>
+  <script src="../assets/js/common.js"></script>
+  <script>
+    //显示评论列表
+    function comment_show(page) {
+      $.ajax({
+        type: 'get',//get或post
+        url: `/admin/comment/${page}`,//请求的地址
+        success: function (data) {//成功的回调函数
+          template.defaults.imports.date = date;
+          //显示列表
+          var html = template("comment_art", { data: data.records });
+          $("tbody").html(html);
+          //分页
+          var num = [];
+          for(var i=0;i<data.pages;i++) {
+            num.push(i+1);
+          }
+          var html_page = template("page_art",{data,num});
+          $(".ul_page").html(html_page);
+        }
+      })
+    }
+    comment_show(1);
+    //修改日期格式
+    function date(date) {
+      return (date.split("T"))[0];
+    }
+    //点击分页
+    $(".ul_page").on("click","a",function(){
+      var page = $(this).attr("page");
+      comment_show(page);
+    })
+    //批准/驳回
+    $("tbody").on("click",".change_status",function(){
+      console.log($(this).html() );
+      var status = $(this).html() == "批准"?1:0;
+      $.ajax({
+        type:'put',//get或post
+        url:'/admin/comment',//请求的地址
+        data:{
+          id: $(this).attr("data_status"),
+          status: status
+        },//如果不需要传，则注释掉 请求的参数，a=1&b=2或{a:1,b:2}或者jq中的serialize方法，或者formData收集
+        success:function(data){//成功的回调函数
+          alert(data);
+          location.reload();
+        }
+      })
+    })
+    //删除评论
+    $("tbody").on("click",".delete_comment",function(){
+      $.ajax({
+        type:'delete',//get或post
+        url:`/admin/comment/${$(this).attr("data_delete")}`,//请求的地址
+        success:function(data){//成功的回调函数
+          alert(data);
+          location.reload();
+        }
+      })
+    })
+  </script>
+</body>
+
+</html>

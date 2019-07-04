@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>Add new post &laquo; Admin</title>
+  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="../assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <script src="../assets/vendors/nprogress/nprogress.js"></script>
+  <script src="../assets/vendors/art-template/template-web.js"></script>
+</head>
+
+<body>
+  <script>NProgress.start()</script>
+
+  <div class="main">
+    <nav class="navbar">
+      <button class="btn btn-default navbar-btn fa fa-bars"></button>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="password-reset.html"><i class="fa fa-user"></i>修改密码</a></li>
+        <li><a href="javascript:;" class="sign_out"><i class="fa fa-sign-out"></i>退出</a></li>
+      </ul>
+    </nav>
+    <div class="container-fluid" id="article_add_modify">
+      <div class="page-title">
+        <h1>写文章</h1>
+      </div>
+      <!-- 有错误信息时展示 -->
+      <!-- <div class="alert alert-danger">
+        <strong>错误！</strong>发生XXX错误
+      </div> -->
+      <form class="row article_add">
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="title">标题</label>
+            <input id="title" class="form-control input-lg" name="title" type="text" placeholder="文章标题">
+          </div>
+          <div class="form-group">
+            <label for="content">内容</label>
+            <textarea id="content" class="form-control input-lg" name="content" cols="30" rows="10"
+              placeholder="内容"></textarea>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="feature">文章封面</label>
+            <!-- show when image chose -->
+            <img class="help-block thumbnail" style="display: none">
+            <input class="form-control feature" type="file">
+            <!-- 文章封面隐藏域 -->
+            <input type="hidden" name="thumbnail">
+          </div>
+          <div class="form-group">
+            <label for="category">所属分类</label>
+            <select id="category" name="category" class="form-control">
+
+
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="created">发布时间</label>
+            <input id="created" name="createAt" class="form-control" type="date">
+          </div>
+          <div class="form-group">
+            <label for="status">状态</label>
+            <select id="status" name="state" class="form-control">
+              <option value="0">草稿</option>
+              <option value="1">已发布</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary" type="button" id="article_btn">保存</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="aside">
+    <div class="profile">
+      <img class="avatar">
+      <h3 class="name"></h3>
+    </div>
+    <ul class="nav">
+      <li>
+        <a href="index.html"><i class="fa fa-dashboard"></i>仪表盘</a>
+      </li>
+      <li class="active">
+        <a href="#menu-posts" data-toggle="collapse">
+          <i class="fa fa-thumb-tack"></i>文章<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-posts" class="collapse in">
+          <li><a href="posts.html">所有文章</a></li>
+          <li class="active"><a href="post-add.html">写文章</a></li>
+          <li><a href="categories.html">分类目录</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="comments.html"><i class="fa fa-comments"></i>评论</a>
+      </li>
+      <li>
+        <a href="users.html"><i class="fa fa-users"></i>用户</a>
+      </li>
+      <li>
+        <a href="#menu-settings" class="collapsed" data-toggle="collapse">
+          <i class="fa fa-cogs"></i>设置<i class="fa fa-angle-right"></i>
+        </a>
+        <ul id="menu-settings" class="collapse">
+          <li><a href="slides.html">图片轮播</a></li>
+          <li><a href="settings.html">网站设置</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <!-- 模板 -->
+  <!-- 分类列表模板 -->
+  <script type="text/html" id="classification">
+    <option>未分类</option>
+    {{each data}}
+      <option value="{{$value._id}}">{{$value.title}}</option>
+    {{/each}}
+  </script>
+  <!-- 修改文章模板 -->
+  <script type="text/html" id="update_art">
+    <div class="page-title">
+        <h1>写文章</h1>
+      </div>
+    <form class="row article_add">
+        <!-- 修改文章的id隐藏域 -->
+        <input type="hidden" name="_id" value = {{@data._id}}>
+        <div class="col-md-9">
+          <div class="form-group">
+            <label for="title">标题</label>
+            <input id="title" class="form-control input-lg" value = {{data.title}} name="title" type="text" placeholder="文章标题">
+          </div>
+          <div class="form-group">
+            <label for="content">内容</label>
+            <textarea id="content" class="form-control input-lg" name="content" cols="30" rows="10" placeholder="内容">{{data.content}}</textarea>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="feature">文章封面</label>
+            <!-- show when image chose -->
+            <img class="help-block thumbnail" style="display: none">
+            <input class="form-control feature" type="file">
+            <!-- 文章封面隐藏域 -->
+            <input type="hidden" name="thumbnail" value = "{{data.thumbnail}}">
+          </div>
+          <div class="form-group">
+            <label for="category">所属分类</label>
+            <select id="category" name="category" class="form-control">
+                {{each data.categorys}}
+                  <option value="{{$value._id}}"  {{$value.title == data.category.title?"selected":""}} >{{$value.title}}</option>
+                {{/each}}
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="created">发布时间</label>
+            <input id="created" value={{$imports.date(data.createAt)}} name="createAt" class="form-control" type="date">
+          </div>
+          <div class="form-group">
+            <label for="status">状态</label>
+            <select id="status" name="state" class="form-control">
+              <option value=0 {{data.state==0?"selected":""}}>草稿</option>
+              <option value=1 {{data.state==1?"selected":""}}>已发布</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-primary modify_btn" type="button">修改</button>
+          </div>
+        </div>
+      </form>
+  </script>
+
+  <script src="../assets/vendors/jquery/jquery.js"></script>
+  <script src="../assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script>NProgress.done()</script>
+  <script src="../assets/js/common.js"></script>
+  <script>
+    //判断是添加文章还是修改文章界面
+    function judge(data) {
+      var parameter = location.search;
+      if (parameter) {
+        //将?去掉
+        parameter = parameter.substr(1);
+        var arr_parameter = parameter.split("&");
+        for (var attr in arr_parameter) {
+          var arr = arr_parameter[attr].split("=");
+          if (arr[0] == data) {
+            return arr[1];
+          }
+        }
+      }
+    }
+
+    //渲染修改文章页面
+    if (judge("id")) {
+      $.ajax({
+        type: 'get',//get或post
+        url: `/admin/modify_show/${judge("id")}`,//请求的地址
+        success: function (data) {//成功的回调函数
+          template.defaults.imports.date = date;
+          //查询文章分类列表
+          $.ajax({
+            type: 'get',//get或post
+            url: '/admin/getSort',//请求的地址
+            success: function (response) {//成功的回调函数
+              data.categorys = response;
+              var html = template("update_art",{data});
+              $("#article_add_modify").html(html);
+            }
+          })
+        }
+      })
+    }
+
+    //修改文章
+    $("#article_add_modify").on("click",".modify_btn",function(){
+      if ($("#title").val().trim().length == 0) {
+        alert("请输入文章标题");
+        return false;
+      } else {
+        const formData = $(".article_add").serialize();
+        $.ajax({
+          type: 'put',//get或post
+          url: '/admin/article',//请求的地址
+          data: formData,//如果不需要传，则注释掉 请求的参数，a=1&b=2或{a:1,b:2}或者jq中的serialize方法，或者formData收集
+          success: function (data) {//成功的回调函数
+            alert(data);
+            location.href = "posts.html";
+          }
+        })
+      }
+
+    });
+    //保存文章
+    $("#article_btn").on("click", function () {
+
+      if ($("#title").val().trim().length == 0) {
+        alert("请输入文章标题");
+        return false;
+      } else {
+        const formData = $(".article_add").serialize();
+        $.ajax({
+          type: 'post',//get或post
+          url: '/admin/article',//请求的地址
+          data: formData,//如果不需要传，则注释掉 请求的参数，a=1&b=2或{a:1,b:2}或者jq中的serialize方法，或者formData收集
+          success: function (data) {//成功的回调函数
+            alert(data);
+            location.href = "posts.html";
+          }
+        })
+      }
+    });
+    //获得文章的封面地址
+    $("#article_add_modify").on("change",".feature", function () {
+      var formData = new FormData();
+      formData.append("avatar", this.files[0]);
+
+      $.ajax({
+        type: 'post',//get或post
+        url: '/admin/img_add',//请求的地址
+        data: formData,//如果不需要传，则注释掉 请求的参数，a=1&b=2或{a:1,b:2}或者jq中的serialize方法，或者formData收集
+        //告诉ajax不要处理formdata的参数
+        processData: false,
+        //告诉ajax不要设置参数类型
+        contentType: false,
+        success: function (data) {//成功的回调函数
+          $("input[name=thumbnail]").val(data);
+        }
+      })
+    })
+    //获得文章分类
+    function getSort() {
+      $.ajax({
+        type: 'get',//get或post
+        url: '/admin/getSort',//请求的地址
+        success: function (data) {//成功的回调函数
+          var html = template("classification", { data });
+          $("#category").html(html);
+        }
+      })
+    }
+    getSort();
+    //修改日期格式
+    function date(date){
+      console.log((date.split("T"))[0]);
+      return (date.split("T"))[0];
+    }
+  </script>
+</body>
+
+</html>
