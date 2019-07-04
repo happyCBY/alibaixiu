@@ -21,6 +21,7 @@ module.exports = async(req,res) => {
             article = await pagination(Article).find({category:req.body.title,state: req.body.state}).page(page).size(2).display(3).populate("category author").exec();
         }
     }
+    console.log(article);
 
     res.send(article);
 }

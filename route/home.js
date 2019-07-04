@@ -11,4 +11,20 @@ home.get("/newArticle",require("./home/newArticle"));
 home.get("/randerRecommend",require("./home/randerRecommend"));
 //展示最新评论数据
 home.get("/new_comment",require("./home/new_comment"));
+//分类导航显示
+home.get("/nav",require("./home/nav"));
+
+//分类导航页面
+home.get("/show_list/:_id",require("./home/show_list"));
+//文章详情页面
+home.get("/article/:id",require("./home/article"));
+//实现点赞功能
+home.get("/likes/:id",require("./home/likes"));
+//实现搜索功能
+home.get("/search/:title",require("./home/search"));
+
+//是否显示评论
+home.get("/settings",require("./home/settings"));
+//评论
+home.post("/comment_add",require("./home/comment_add"));
 module.exports = home;

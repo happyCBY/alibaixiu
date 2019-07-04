@@ -160,6 +160,7 @@
         url: '/admin/article_screen',//请求的地址
         data: formData,
         success: function (data) {//成功的回调函数
+
           var arr = [];
           for(var i = 0;i < data.pages; i++){
             arr.push(i+1);
