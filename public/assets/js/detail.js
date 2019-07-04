@@ -20,13 +20,12 @@ function show_article_details(){
     `;
 
     const id = location.search .split("=")[1];
-    console.log(44);
 
     $.ajax({
         type:'get',//get或post
         url:'/home/article/'+id,//请求的地址
         success:function(data){//成功的回调函数
-            console.log(data);
+
 
             var html = template.render(str,{data});
             $(".article").html(html);

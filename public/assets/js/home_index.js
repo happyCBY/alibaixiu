@@ -4,6 +4,8 @@
       type: 'get',//get或post
       url: '/home/index_img',//请求的地址
       success: function (data) {//成功的回调函数
+        console.log(data);
+
         var html = template("img_show", { data });
         $(".ul_show").html(html);
 
@@ -68,7 +70,6 @@ $.ajax({
     template.defaults.imports.time = time;
     var html = template.render(str,{data});
     $(".newArticle").html(html);
-    console.log($(".newArticle").children());
   }
 })
 }

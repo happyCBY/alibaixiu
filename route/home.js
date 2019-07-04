@@ -20,4 +20,7 @@ home.get("/show_list/:_id",require("./home/show_list"));
 home.get("/article/:id",require("./home/article"));
 //实现点赞功能
 home.get("/likes/:id",require("./home/likes"));
+//实现搜索功能
+home.get("/search/:title",require("./home/search"));
+
 module.exports = home;

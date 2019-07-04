@@ -118,6 +118,17 @@ $(".newArticle").on("click",".likes",function (){
     })
 });
 
+
+//搜索功能
+
+$(".find").on("click",function (){
+
+    var value = $(this).siblings(".keys").val();
+    location.href = "search.html?value="+value;
+
+})
+
+
 //修改时间日期
 function time(times) {
     var date = new Date(times);

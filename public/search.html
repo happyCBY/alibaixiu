@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,10 +7,8 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/vendors/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="assets/css/index.css">
   <script src="./assets/vendors/art-template/template-web.js"></script>
 </head>
-
 <body>
   <div class="wrapper">
     <div class="topnav">
@@ -24,15 +21,13 @@
     </div>
     <div class="header">
       <h1 class="logo"><a href="index.html"><img src="assets/img/logo.png" alt=""></a></h1>
-
       <ul class="nav">
 
       </ul>
-
       <div class="search">
         <form>
           <input type="text" class="keys" placeholder="输入关键字">
-          <input type="button" class="btn find" value="搜索">
+          <input type="submit" class="btn find" value="搜索">
         </form>
       </div>
     </div>
@@ -42,7 +37,7 @@
         <div class="body search">
           <form>
             <input type="text" class="keys" placeholder="输入关键字">
-            <input type="button" class="btn find" value="搜索">
+            <input type="submit" class="btn find" value="搜索">
           </form>
         </div>
       </div>
@@ -50,42 +45,17 @@
         <h4>随机推荐</h4>
         <ul class="body random">
 
-
         </ul>
       </div>
       <div class="widgets">
         <h4>最新评论</h4>
         <ul class="body discuz new_comment">
 
-
         </ul>
       </div>
     </div>
     <div class="content">
-      <div class="swipe">
-        <ul class="swipe-wrapper ul_show">
-        </ul>
-        <p class="cursor">
-          <span class="active"></span>
-          <span></span>
-          <span></span>
-          <span></span>
-        </p>
-        <a href="javascript:;" class="arrow prev"><i class="fa fa-chevron-left"></i></a>
-        <a href="javascript:;" class="arrow next"><i class="fa fa-chevron-right"></i></a>
-      </div>
-      <div class="panel hots">
-        <h3>热门推荐</h3>
-        <ul class="hot_recommend">
-
-
-        </ul>
-      </div>
-      <div class="panel new">
-        <h3>最新发布</h3>
-        <div class="newArticle">
-
-        </div>
+      <div class="panel new newArticle ">
 
 
       </div>
@@ -94,36 +64,9 @@
       <p>© 2016 XIU主题演示 本站主题由 themebetter 提供</p>
     </div>
   </div>
-  <!-- 模板 -->
-  <!-- 轮播图显示 -->
-  <script type="text/html" id="img_show">
-
-      {{each data}}
-        <li>
-          <a href="detail.html?id={{$value.link}}">
-            <img src="{{$value.img}}">
-            <span>{{$value.text}}</span>
-          </a>
-        </li>
-      {{/each}}
-
-    <!-- <p class="cursor">
-      {{each data}}
-        {{if $index == 0}}
-        <span class="active"></span>
-        {{else}}
-        <span></span>
-        {{/if}}
-      {{/each}}
-    </p>
-    <a href="javascript:;" class="arrow prev"><i class="fa fa-chevron-left"></i></a>
-    <a href="javascript:;" class="arrow next"><i class="fa fa-chevron-right"></i></a> -->
-  </script>
   <script src="assets/vendors/jquery/jquery.js"></script>
   <script src="assets/vendors/nprogress/nprogress.js"></script>
-  <script src="assets/vendors/swipe/swipe.js"></script>
   <script src="./assets/js/home_common.js"></script>
-  <script src="./assets/js/home_index.js"></script>
+  <script src="./assets/js/search.js"></script>
 </body>
-
 </html>
