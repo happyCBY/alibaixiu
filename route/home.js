@@ -16,4 +16,6 @@ home.get("/nav",require("./home/nav"));
 
 //分类导航页面
 home.get("/show_list/:_id",require("./home/show_list"));
+//文章详情页面
+home.get("/article/:id",require("./home/article"));
 module.exports = home;

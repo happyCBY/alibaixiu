@@ -72,10 +72,3 @@ $.ajax({
 })
 }
 show_newArticle();
-
-
-//修改时间日期
-function time(times) {
-  var date = new Date(times);
-  return date.getFullYear()+"/"+(date.getMonth()+1)+"/"+date.getDate();
-}
